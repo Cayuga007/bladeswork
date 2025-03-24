@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://vd2ufiqvhylr"]
+
+[ext_resource type="Script" path="res://scripts/mirror_blade.gd" id="1_crnxb"]
+
+[resource]
+script = ExtResource("1_crnxb")

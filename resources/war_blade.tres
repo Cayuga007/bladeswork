@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://vf5royvmd51s"]
+
+[ext_resource type="Script" path="res://scripts/war_blade.gd" id="1_jskuh"]
+
+[resource]
+script = ExtResource("1_jskuh")

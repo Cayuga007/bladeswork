@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dujimt1al0l1t"]
+
+[ext_resource type="Script" path="res://scripts/standard_blade.gd" id="1_vi7h4"]
+
+[resource]
+script = ExtResource("1_vi7h4")

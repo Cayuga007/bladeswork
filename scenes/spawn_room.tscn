@@ -1,0 +1,368 @@
+[gd_scene load_steps=36 format=3 uid="uid://bol4bxy38ydu8"]
+
+[ext_resource type="Script" path="res://scripts/spawn_room.gd" id="1_6387o"]
+[ext_resource type="PackedScene" uid="uid://bkp1xv3kcf6tv" path="res://scenes/player.tscn" id="1_qktmd"]
+[ext_resource type="PackedScene" uid="uid://div80dqtb6vjx" path="res://assets/spawn_room.blend" id="3_obbac"]
+[ext_resource type="Shader" uid="uid://17cukt16to04" path="res://shaders/s_dynamic_shader.tres" id="4_6t73v"]
+[ext_resource type="Texture2D" uid="uid://5gaf0b63y5o5" path="res://assets/PNG (Transparent)/spark_02.png" id="5_bsf5t"]
+[ext_resource type="ArrayMesh" uid="uid://dm7yymw63c7oi" path="res://assets/cylinder1.obj" id="6_62rag"]
+[ext_resource type="Texture2D" uid="uid://bgg1eiv4tgi8t" path="res://assets/PNG (Transparent)/light_02.png" id="7_cyksr"]
+[ext_resource type="ArrayMesh" uid="uid://cv0pnrqux4ht0" path="res://assets/cylinder2.obj" id="8_ecj61"]
+[ext_resource type="Shader" uid="uid://cnbt4o8t58tgy" path="res://shaders/s_simple_shader.tres" id="9_khjgr"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_b7gim"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_4px0x"]
+sky_material = SubResource("ProceduralSkyMaterial_b7gim")
+
+[sub_resource type="Environment" id="Environment_q6irf"]
+background_mode = 2
+sky = SubResource("Sky_4px0x")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_kthqk"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1n7xg"]
+render_priority = 0
+shader = ExtResource("4_6t73v")
+shader_parameter/Speed = Vector2(2, -1)
+shader_parameter/Texture_Power = 1.3
+shader_parameter/Gradient_Power = 1.0
+shader_parameter/Energy_Texture = ExtResource("5_bsf5t")
+
+[sub_resource type="Curve" id="Curve_meh5a"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_rmk1k"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_0wnk2"]
+max_value = 8.0
+_data = [Vector2(0, 0.0219779), 0.0, 0.0, 0, 0, Vector2(1, 8), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_5a7dp"]
+curve_x = SubResource("Curve_meh5a")
+curve_y = SubResource("Curve_rmk1k")
+curve_z = SubResource("Curve_0wnk2")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cechk"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveXYZTexture_5a7dp")
+color = Color(2, 2, 0.5, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3ot8w"]
+render_priority = 0
+shader = ExtResource("4_6t73v")
+shader_parameter/Speed = Vector2(2, 1)
+shader_parameter/Texture_Power = 2.0
+shader_parameter/Gradient_Power = 1.0
+
+[sub_resource type="Curve" id="Curve_b4xxl"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_r703y"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_xlxkn"]
+max_value = 28.0
+_data = [Vector2(0, 0.0219779), 0.0, 0.0, 0, 0, Vector2(1, 28), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_et5mu"]
+curve_x = SubResource("Curve_b4xxl")
+curve_y = SubResource("Curve_r703y")
+curve_z = SubResource("Curve_xlxkn")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ximyl"]
+gravity = Vector3(0, 0, 0)
+scale_min = 0.3
+scale_max = 0.3
+scale_curve = SubResource("CurveXYZTexture_et5mu")
+color = Color(2, 2, 1, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_73yek"]
+render_priority = 0
+shader = ExtResource("4_6t73v")
+shader_parameter/Speed = Vector2(1.5, 2)
+shader_parameter/Texture_Power = 1.5
+shader_parameter/Gradient_Power = 3.0
+shader_parameter/Energy_Texture = ExtResource("7_cyksr")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_exkka"]
+gravity = Vector3(0, 0, 0)
+color = Color(2, 2, 0.5, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oiat8"]
+render_priority = 0
+shader = ExtResource("9_khjgr")
+
+[sub_resource type="Curve" id="Curve_05b2b"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_0eboj"]
+curve = SubResource("Curve_05b2b")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h7mj6"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 0, 1)
+spread = 0.0
+initial_velocity_min = 5.0
+initial_velocity_max = 8.0
+radial_velocity_min = -2.23517e-05
+radial_velocity_max = 1.99998
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 3.5
+color = Color(2, 2, 1, 1)
+alpha_curve = SubResource("CurveTexture_0eboj")
+
+[sub_resource type="QuadMesh" id="QuadMesh_brex0"]
+size = Vector2(0.1, 0.1)
+
+[sub_resource type="Animation" id="Animation_hpgyj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainEnergyCylinder:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LittleCylinder:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SplashEnergy:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles3D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_q5ybf"]
+resource_name = "beam_effect"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MainEnergyCylinder:emitting")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LittleCylinder:emitting")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("SplashEnergy:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("GPUParticles3D:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k2f8a"]
+_data = {
+"RESET": SubResource("Animation_hpgyj"),
+"beam_effect": SubResource("Animation_q5ybf")
+}
+
+[node name="SpawnRoom" type="Node3D"]
+script = ExtResource("1_6387o")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_q6irf")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Player" parent="." instance=ExtResource("1_qktmd")]
+
+[node name="spawn_room" parent="." instance=ExtResource("3_obbac")]
+
+[node name="PickUpHitboxes" type="Node3D" parent="."]
+
+[node name="StandardBlade" type="Area3D" parent="PickUpHitboxes"]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUpHitboxes/StandardBlade"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8.5)
+shape = SubResource("CylinderShape3D_kthqk")
+
+[node name="ShadowBlade" type="Area3D" parent="PickUpHitboxes"]
+transform = Transform3D(0.809017, 0, -0.587785, 0, 1, 0, 0.587785, 0, 0.809017, 0, 0, 0)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUpHitboxes/ShadowBlade"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8.5)
+shape = SubResource("CylinderShape3D_kthqk")
+
+[node name="IceBlade" type="Area3D" parent="PickUpHitboxes"]
+transform = Transform3D(0.309017, 0, -0.951057, 0, 1, 0, 0.951057, 0, 0.309017, 0, 0, 0)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUpHitboxes/IceBlade"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8.5)
+shape = SubResource("CylinderShape3D_kthqk")
+
+[node name="MirrorBlade" type="Area3D" parent="PickUpHitboxes"]
+transform = Transform3D(-0.309017, 0, -0.951056, 0, 1, 0, 0.951056, 0, -0.309017, 0, 0, 0)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUpHitboxes/MirrorBlade"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8.5)
+shape = SubResource("CylinderShape3D_kthqk")
+
+[node name="WarBlade" type="Area3D" parent="PickUpHitboxes"]
+transform = Transform3D(-0.809017, 0, -0.587785, 0, 1, 0, 0.587785, 0, -0.809017, 0, 0, 0)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUpHitboxes/WarBlade"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8.5)
+shape = SubResource("CylinderShape3D_kthqk")
+
+[node name="FireBlade" type="Area3D" parent="PickUpHitboxes"]
+transform = Transform3D(0.809017, 0, 0.587785, 0, 1, 0, -0.587785, 0, 0.809017, 0, 0, 0)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUpHitboxes/FireBlade"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8.5)
+shape = SubResource("CylinderShape3D_kthqk")
+
+[node name="WindBlade" type="Area3D" parent="PickUpHitboxes"]
+transform = Transform3D(0.309017, 0, 0.951057, 0, 1, 0, -0.951057, 0, 0.309017, 0, 0, 0)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUpHitboxes/WindBlade"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8.5)
+shape = SubResource("CylinderShape3D_kthqk")
+
+[node name="ThunderBlade" type="Area3D" parent="PickUpHitboxes"]
+transform = Transform3D(-0.309017, 0, 0.951056, 0, 1, 0, -0.951056, 0, -0.309017, 0, 0, 0)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUpHitboxes/ThunderBlade"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8.5)
+shape = SubResource("CylinderShape3D_kthqk")
+
+[node name="HolyBlade" type="Area3D" parent="PickUpHitboxes"]
+transform = Transform3D(-0.809017, 0, 0.587785, 0, 1, 0, -0.587785, 0, -0.809017, 0, 0, 0)
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PickUpHitboxes/HolyBlade"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -8.5)
+shape = SubResource("CylinderShape3D_kthqk")
+
+[node name="Beam" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, -6, 0)
+
+[node name="MainEnergyCylinder" type="GPUParticles3D" parent="Beam"]
+material_override = SubResource("ShaderMaterial_1n7xg")
+amount = 1
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_cechk")
+draw_pass_1 = ExtResource("6_62rag")
+
+[node name="LittleCylinder" type="GPUParticles3D" parent="Beam"]
+material_override = SubResource("ShaderMaterial_3ot8w")
+amount = 1
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_ximyl")
+draw_pass_1 = ExtResource("6_62rag")
+
+[node name="SplashEnergy" type="GPUParticles3D" parent="Beam"]
+material_override = SubResource("ShaderMaterial_73yek")
+amount = 1
+lifetime = 1.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_exkka")
+draw_pass_1 = ExtResource("8_ecj61")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Beam"]
+material_override = SubResource("ShaderMaterial_oiat8")
+amount = 50
+one_shot = true
+explosiveness = 0.2
+process_material = SubResource("ParticleProcessMaterial_h7mj6")
+draw_pass_1 = SubResource("QuadMesh_brex0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Beam"]
+libraries = {
+"": SubResource("AnimationLibrary_k2f8a")
+}

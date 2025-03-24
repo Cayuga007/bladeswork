@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c64v5kcmum74k"]
+
+[ext_resource type="Script" path="res://scripts/shadow_blade.gd" id="1_anyg4"]
+
+[resource]
+script = ExtResource("1_anyg4")
